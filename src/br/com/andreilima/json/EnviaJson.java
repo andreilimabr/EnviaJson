@@ -18,7 +18,7 @@ import com.google.gson.Gson;
 
 public class EnviaJson {
 	public static void main(String[] args) {
-		
+		System.out.println("Executando vendas virtuais(Ctrl+c Para Sair)...");
 		/**
 		 * http://stackoverflow.com/questions/14454063/how-to-make-a-timer
 		 */
@@ -30,6 +30,7 @@ public class EnviaJson {
 			public void run() {
 				// TODO Auto-generated method stub
 				doRequest("http://localhost:8080/Operadora/realizavenda", vendaAleatoria(vendedor));
+				// doRequest("http://ec2-54-207-33-7.sa-east-1.compute.amazonaws.com:8080/Operadora/realizavenda", vendaAleatoria(vendedor));
 			}
 		}, 0, 30000);
 		
@@ -81,6 +82,15 @@ public class EnviaJson {
 				"manaus","belém","rio branco","palmas",
 				"curitiba","florianópolis","blumenau","porto alegre"
 		};
+		
+		final String[] geocode = new String[]{
+				"-21.139539,-48.975871","-20.812637,-49.381348","-22.214933,-49.951646","-23.567387,-46.570383",
+				"-19.713535,-47.983625","-18.592571,-46.515916","-18.918999,-48.277950","-21.695966,-45.254937",
+				"-13.014772,-38.488061","-14.848005,-40.839810","-7.221497,-35.883859","-5.086342,-42.805270",
+				"-3.134691,-60.023335","-1.459845,-48.487826","-9.978299,-67.810529","-10.163253,-48.351044",
+				"-25.432956,-49.271848","-27.587796,-48.547637","-26.916108,-49.057631","-30.030037,-51.228660"
+		};
+		
 		final int[] lojas_max = new int[]{
 				10,10,1,5,
 				3,1,2,1,
@@ -130,6 +140,7 @@ public class EnviaJson {
 		Venda venda = new Venda();
 		venda.setVendedor(vendedor);
 		venda.setCidade(cidades[posicao].toUpperCase());
+		venda.setGeocode(geocode[posicao]);
 		venda.setLoja(String.valueOf(geraNumero(1,lojas_max[posicao])));
 		venda.setUf(estados[posicao].toUpperCase());
 		venda.setRegiao(regioes[posicao].toUpperCase());
